@@ -6,7 +6,13 @@
 
     <groupId>com.bonc</groupId>
     <artifactId>micro-service-on-k8s</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>message-thrift-service-api</module>
+        <module>user-thrift-service-api</module>
+        <module>user-thrift-service</module>
+    </modules>
 
 
 </project>
