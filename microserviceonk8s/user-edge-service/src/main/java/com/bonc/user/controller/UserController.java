@@ -6,6 +6,7 @@ import com.bonc.user.redis.RedisClient;
 import com.bonc.user.response.LoginResponse;
 import com.bonc.user.response.Response;
 import com.bonc.user.thrift.ServiceProvider;
+import org.apache.commons.lang.StringUtils;
 import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.BeanUtils;
@@ -66,6 +67,79 @@ public class UserController {
         //3. 缓存用户
         redisClient.set(token, toDTO(userInfo), 3600);
         return new LoginResponse(token);
+    }
+
+
+    @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
+    @ResponseBody
+    public Response sendVerifyCode(@RequestParam(value="mobile", required = false) String mobile,
+                                   @RequestParam(value="email", required = false) String email) {
+
+        String message = "Verify code is:";
+        String code = randomCode("0123456789", 6);
+        try {
+
+            boolean result = false;
+            if(StringUtils.isNotBlank(mobile)) {
+                result = serviceProvider.getMessasgeService().sendMobileMessage(mobile, message+code);
+                redisClient.set(mobile, code);
+            } else if(StringUtils.isNotBlank(email)) {
+                result = serviceProvider.getMessasgeService().sendEmailMessage(email, message+code);
+                redisClient.set(email, code);
+            } else {
+                return Response.MOBILE_OR_EMAIL_REQUIRED;
+            }
+
+            if(!result) {
+                return Response.SEND_VERIFYCODE_FAILED;
+            }
+        } catch (TException e) {
+            e.printStackTrace();
+            return Response.exception(e);
+        }
+
+        return Response.SUCCESS;
+
+    }
+
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @ResponseBody
+    public Response register(@RequestParam("username") String username,
+                             @RequestParam("password") String password,
+                             @RequestParam(value = "mobile", required = false) String mobile,
+                             @RequestParam(value = "email", required = false) String email,
+                             @RequestParam(value ="verifyCode", required = false) String verifyCode ) {
+        if(StringUtils.isBlank(mobile) && StringUtils.isBlank(email)) {
+            return Response.MOBILE_OR_EMAIL_REQUIRED;
+        }
+
+//        if(StringUtils.isNotBlank(mobile)) { //认为是手机的验证码
+//            String redisCode = redisClient.get(mobile);
+//            if(!verifyCode.equals(redisCode)) {
+//                return Response.VERIFY_CODE_INVALID;
+//            }
+//        }else {
+//            String redisCode = redisClient.get(email);
+//            if(!verifyCode.equals(redisCode)) {
+//                return Response.VERIFY_CODE_INVALID;
+//            }
+//        }
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(username);
+        userInfo.setRealName("realName-->" + username);
+        userInfo.setPassword(md5(password));
+        userInfo.setMobile(mobile);
+        userInfo.setEmail(email);
+
+        try {
+            serviceProvider.getUserService().registerUser(userInfo);
+        } catch (TException e) {
+            e.printStackTrace();
+            return Response.exception(e);
+        }
+
+        return Response.SUCCESS;
     }
 
 
