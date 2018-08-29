@@ -21,7 +21,7 @@
 
 
 # 流程图 
-![](https://note.youdao.com/yws/public/resource/ca7c2468223e3c4a80c4e24b70ff9608/xmlnote/149ACED02A3F4D5CAF4564C6770A4598/20059)
+![](https://note.youdao.com/yws/public/resource/9c8584c6ec980aee585665c38a65bf9d/xmlnote/63F2E6EDCCC4400AA5484C6CE90CD6F7/20061)
 
 ## 说明  
 - zookeeper 是用来发现服务，注册服务的  
