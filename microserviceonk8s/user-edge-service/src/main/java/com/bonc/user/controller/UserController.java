@@ -82,6 +82,7 @@ public class UserController {
             boolean result = false;
             if(StringUtils.isNotBlank(mobile)) {
                 result = serviceProvider.getMessasgeService().sendMobileMessage(mobile, message+code);
+                System.out.println("------------------------------------------------");
                 redisClient.set(mobile, code);
             } else if(StringUtils.isNotBlank(email)) {
                 result = serviceProvider.getMessasgeService().sendEmailMessage(email, message+code);
@@ -113,17 +114,19 @@ public class UserController {
             return Response.MOBILE_OR_EMAIL_REQUIRED;
         }
 
-//        if(StringUtils.isNotBlank(mobile)) { //认为是手机的验证码
-//            String redisCode = redisClient.get(mobile);
-//            if(!verifyCode.equals(redisCode)) {
-//                return Response.VERIFY_CODE_INVALID;
-//            }
-//        }else {
-//            String redisCode = redisClient.get(email);
-//            if(!verifyCode.equals(redisCode)) {
-//                return Response.VERIFY_CODE_INVALID;
-//            }
-//        }
+        if(StringUtils.isNotBlank(mobile)) { //认为是手机的验证码
+            String redisCode = redisClient.get(mobile);
+            System.out.println("------1------");
+            if(!verifyCode.equals(redisCode)) {
+                return Response.VERIFY_CODE_INVALID;
+            }
+            System.out.println("------2------");
+        }else {
+            String redisCode = redisClient.get(email);
+            if(!verifyCode.equals(redisCode)) {
+                return Response.VERIFY_CODE_INVALID;
+            }
+        }
 
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);

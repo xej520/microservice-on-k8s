@@ -6,4 +6,4 @@ thrift --gen java -out ../../message-thrift-service-api/src/main/java message.th
 
 
 #生成go  API
-thrift --gen go  -out ../../message-thrift-go-service/  message.thrift
+thrift --gen go  -out ../../message-thrift-go-service/pkg  message.thrift
