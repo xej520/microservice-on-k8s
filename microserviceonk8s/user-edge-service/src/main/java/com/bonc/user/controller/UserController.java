@@ -1,7 +1,7 @@
 package com.bonc.user.controller;
 
+import com.bonc.thrift.dto.UserDTO;
 import com.bonc.thrift.user.UserInfo;
-import com.bonc.user.dto.UserDTO;
 import com.bonc.user.redis.RedisClient;
 import com.bonc.user.response.LoginResponse;
 import com.bonc.user.response.Response;
@@ -12,16 +12,13 @@ import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.sound.midi.Soundbank;
 import java.security.MessageDigest;
 import java.util.Random;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -31,9 +28,9 @@ public class UserController {
     private RedisClient redisClient;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public void login() {
+    public String login() {
 //
-        System.out.println("===================================");
+       return "/login";
     }
 
 
@@ -177,6 +174,14 @@ public class UserController {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    @RequestMapping(value="/authentication", method = RequestMethod.POST)
+    @ResponseBody
+    public UserDTO authentication(@RequestHeader("token") String token) {
+
+        return redisClient.get(token);
     }
 
 }

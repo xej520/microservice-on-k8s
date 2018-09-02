@@ -1,5 +1,8 @@
-package com.bonc.user.dto;
+package com.bonc.thrift.dto;
 
+//从user-edge-service里移动到这个模块下
+//这样其他模块，也就可以使用了
+//同样定义成API
 public class UserDTO {
 
     private int id;

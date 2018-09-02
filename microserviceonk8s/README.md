@@ -71,6 +71,12 @@
     thrift --gen java demo.thrift 
     thrift --gen py demo.thrift
     thrift --gen go demo.thrift
-如果有相应的文件夹生成，说明没问题
+如果有相应的文件夹生成，说明没问题   
+
+## 问题？
+### 其他系统如何使用我们的单点登录呢，或者对接？要使得很方便才可以的  
+    一般使用客户端jar包的形式
+因此需要单独创建一个模块，用来给其他系统进行单点登录的jar  
+
 
 
