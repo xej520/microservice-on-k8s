@@ -1,9 +1,11 @@
 package com.bonc.thrift.dto;
 
+import java.io.Serializable;
+
 //从user-edge-service里移动到这个模块下
 //这样其他模块，也就可以使用了
 //同样定义成API
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     private int id;
     private String username;
@@ -59,5 +61,17 @@ public class UserDTO {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", realName='" + realName + '\'' +
+                '}';
     }
 }
