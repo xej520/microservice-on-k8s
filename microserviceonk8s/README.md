@@ -78,5 +78,118 @@
     一般使用客户端jar包的形式
 因此需要单独创建一个模块，用来给其他系统进行单点登录的jar  
 
+# 数据库
+## miscro-server-user 数据库  (下面是对应的SQL文件miscro-server-user.sql)
+   ```$xslt
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : xej-mysql
+Source Server Version : 50718
+Source Host           : 172.16.91.165:3306
+Source Database       : miscro-server-user
+
+Target Server Type    : MYSQL
+Target Server Version : 50718
+File Encoding         : 65001
+
+Date: 2018-09-03 19:16:28
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `pe_teacher`
+-- ----------------------------
+DROP TABLE IF EXISTS `pe_teacher`;
+CREATE TABLE `pe_teacher` (
+  `user_id` int(11) NOT NULL,
+  `intro` varchar(64) NOT NULL,
+  `stars` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pe_teacher
+-- ----------------------------
+INSERT INTO `pe_teacher` VALUES ('1', '北京大学', '5');
+INSERT INTO `pe_teacher` VALUES ('2', '清华大学', '6');
+
+-- ----------------------------
+-- Table structure for `pe_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `pe_user`;
+CREATE TABLE `pe_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
+  `real_name` varchar(32) NOT NULL,
+  `mobile` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pe_user
+-- ----------------------------
+INSERT INTO `pe_user` VALUES ('1', 'xiaoqiang', 'e10adc3949ba59abbe56e057f20f883e', 'yyyy', '12345678', 'xxxx@163.com');
+INSERT INTO `pe_user` VALUES ('2', 'xiaoqiang2', 'e10adc3949ba59abbe56e057f20f883e', 'realNamdxxx', '12345678', 'xxxx@163.com');
+INSERT INTO `pe_user` VALUES ('3', 'xiaoqiang3', 'e10adc3949ba59abbe56e057f20f883e', 'realName-->xxx', '12345678', 'xxxx@163.com');
+
+```
+
+## miscro-server-course 数据库  (下面是对应的SQL文件miscro-server-course.sql)  
+```$xslt
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : xej-mysql
+Source Server Version : 50718
+Source Host           : 172.16.91.165:3306
+Source Database       : miscro-server-course
+
+Target Server Type    : MYSQL
+Target Server Version : 50718
+File Encoding         : 65001
+
+Date: 2018-09-03 19:20:13
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `pe_course`
+-- ----------------------------
+DROP TABLE IF EXISTS `pe_course`;
+CREATE TABLE `pe_course` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL,
+  `description` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pe_course
+-- ----------------------------
+INSERT INTO `pe_course` VALUES ('1', '大学英语四级', '非常好的免费课程');
+
+-- ----------------------------
+-- Table structure for `pr_user_course`
+-- ----------------------------
+DROP TABLE IF EXISTS `pr_user_course`;
+CREATE TABLE `pr_user_course` (
+  `user_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pr_user_course
+-- ----------------------------
+INSERT INTO `pr_user_course` VALUES ('2', '1');
+
+```  
+
+
 
 
