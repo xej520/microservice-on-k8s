@@ -33,11 +33,7 @@
    #### 将工程上传到服务器上，（因为开发环境是wind，上传到centos服务器）  
  &ensp;  
  &ensp;  
-        
-   #### 编写构建镜像脚本build.sh  
-       #!/bin/bash
-       docker build -t api-gateway-zuul . 
-     
+           
    #### 编写Dockerfile  
      FROM openjdk:8-jdk-alpine
      
@@ -45,7 +41,11 @@
      
      COPY target/api-gateway-zuul-1.0-SNAPSHOT.jar /api-gateway-zuul.jar
      
-     ENTRYPOINT ["java", "-jar", "/api-gateway-zuul.jar"]
+     ENTRYPOINT ["java", "-jar", "/api-gateway-zuul.jar"]  
+  
+  #### 编写构建镜像脚本build.sh  
+      #!/bin/bash
+      docker build -t api-gateway-zuul . 
    #### 编写启动脚本start.sh  
      #!/bin/bash
      docker stop api-gateway-zuul

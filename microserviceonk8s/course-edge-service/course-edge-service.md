@@ -31,10 +31,7 @@
  &ensp;  
  &ensp;  
         
-   #### 编写构建镜像脚本build.sh  
-       #!/bin/bash
-       docker build -t course-edge-service . 
-     
+
    #### 编写Dockerfile  
      FROM openjdk:8-jdk-alpine
      
@@ -43,6 +40,11 @@
      COPY target/course-edge-service-1.0-SNAPSHOT.jar /course-edge-service.jar
      
      ENTRYPOINT ["java", "-jar", "/course-edge-service.jar"]
+   #### 编写构建镜像脚本build.sh  
+      #!/bin/bash
+      docker build -t course-edge-service . 
+       
+  
    #### 编写启动脚本start.sh  
      #!/bin/bash
      docker stop course-edge-service

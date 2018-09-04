@@ -44,11 +44,6 @@
    #### 将工程上传到服务器上，（因为开发环境是wind，上传到centos服务器）  
  &ensp;  
  &ensp;  
-        
-   #### 编写构建镜像脚本build.sh  
-       #!/bin/bash
-       docker build -t course-dubbo-service . 
-     
    #### 编写Dockerfile  
      FROM openjdk:8-jdk-alpine
      
@@ -56,7 +51,14 @@
      
      COPY target/course-dubbo-service-1.0-SNAPSHOT.jar /course-dubbo-service.jar
      
-     ENTRYPOINT ["java", "-jar", "/course-dubbo-service.jar"]
+     ENTRYPOINT ["java", "-jar", "/course-dubbo-service.jar"]    
+    
+        
+   #### 编写构建镜像脚本build.sh  
+      #!/bin/bash
+      docker build -t course-dubbo-service . 
+     
+
    #### 编写启动脚本start.sh  
      #!/bin/bash
      docker stop course-dubbo-service
