@@ -1,0 +1,43 @@
+version: '3'
+services:
+  message-thrift-go-service:
+    image: message-thrift-go-service:latest
+  user-thrift-service:
+    image: user-thrift-service:latest
+    command:
+    - "--mysql.address=172.16.91.165"
+  user-edge-service:
+    image: user-edge-service:latest
+    links:
+    - user-thrift-service
+    - message-thrift-go-service
+    command:
+    - "--redis.address=172.16.91.165"
+  course-dubbo-service:
+    image: course-dubbo-service:latest
+    links:
+    - user-thrift-service
+    command:
+    - "--mysql.address=172.16.91.165"
+    - "--zk.address=172.16.91.165"
+  course-edge-service:
+    image: course-edge-service:latest
+    links:
+    - user-edge-service
+    command:
+    - "--zk.address=172.16.91.165"
+  api-gateway-zuul:
+    image: api-gateway-zuul:latest
+    links:
+    - user-edge-service
+    - course-edge-service
+    ports:
+    - 9090:8080
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre
 
 MAINTAINER XXX XXX@163.com
 

@@ -29,8 +29,8 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-//
-       return "/login";
+        System.out.println("===========login=============");
+       return "login";
     }
 
 
@@ -77,6 +77,7 @@ public class UserController {
         try {
 
             boolean result = false;
+
             if(StringUtils.isNotBlank(mobile)) {
                 result = serviceProvider.getMessasgeService().sendMobileMessage(mobile, message+code);
                 System.out.println("------------------------------------------------");

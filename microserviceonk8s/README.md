@@ -197,4 +197,3 @@ INSERT INTO `pr_user_course` VALUES ('2', '1');
 
 
 
-

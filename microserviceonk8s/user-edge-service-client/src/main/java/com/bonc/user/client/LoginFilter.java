@@ -61,7 +61,8 @@ public abstract class LoginFilter implements Filter {
 
         //如果为null的话，就跳转到登录页
         if(userDTO==null) {
-            response.sendRedirect("http://127.0.0.1:8082/user/login");
+            System.out.println("---------------------LoginFilter------------------------------");
+            response.sendRedirect("http://user-edge-service:8082/user/login");
             return;
         }
 
@@ -78,7 +79,8 @@ public abstract class LoginFilter implements Filter {
     private UserDTO requestUserInfo(String token) {
 //        String url = "http://"+userEdgeServiceAddr()+"/user/authentication";
 
-        String url = "http://127.0.0.1:8082/user/authentication";
+//        String url = "http://127.0.0.1:8082/user/authentication";
+        String url = "http://user-edge-service:8082/user/authentication";
 
 //        通过http client来访问这个请求
         HttpClient client = new DefaultHttpClient();
