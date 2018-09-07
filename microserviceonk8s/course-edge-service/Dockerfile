@@ -1,4 +1,4 @@
-     FROM openjdk:8-jre
+     FROM 172.16.91.165:80/micro-service/openjdk:8-jre
 
      MAINTAINER XXX XXX@163.com
 
