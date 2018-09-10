@@ -14,14 +14,15 @@ public class CourseFilter extends LoginFilter {
     @Value("${user.edge.service.addr}")
     private String userEdgeServiceAddr;
 
-//    @Override
-//    protected String userEdgeServiceAddr() {
-//        return userEdgeServiceAddr;
-//    }
+    @Override
+    protected String userEdgeServiceAddr() {
+        return userEdgeServiceAddr;
+    }
 
     @Override
     protected void login(HttpServletRequest request, HttpServletResponse response, UserDTO userDTO) {
 
         request.setAttribute("user", userDTO);
     }
+
 }
