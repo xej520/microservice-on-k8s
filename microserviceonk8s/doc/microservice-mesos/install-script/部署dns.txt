@@ -1,0 +1,12 @@
+需要部署dns，
+在172.16.91.186,172.16.91.187上，修改docker的配置文件
+/etc/dockcer/daemon.json
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"],
+  "insecure-registries":["172.16.91.222:80"],
+   "dns":["172.16.91.222"]
+}
+
+这样在容器内部，就可以访问域名lb.guxin.com, 不然无法解析lb.guxin.com
+域名解析，这只是其中的一个方案，
+
